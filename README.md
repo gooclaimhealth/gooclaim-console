@@ -45,6 +45,8 @@ npm run dev
 http://localhost:3000
 ```
 
+If port `3000` is already in use, Next.js will automatically start on the next available port, for example `http://localhost:3001`.
+
 ## Environment Variables
 
 The app now supports an explicit local toggle between seeded mocks and a live API.
@@ -53,6 +55,7 @@ The app now supports an explicit local toggle between seeded mocks and a live AP
 NEXT_PUBLIC_USE_MOCK_API=true
 NEXT_PUBLIC_API_URL=http://localhost:8000
 NEXT_PUBLIC_MOCK_LATENCY_MS=250
+NEXT_PUBLIC_KILL_SWITCH_ACTIVE=false
 ```
 
 ### Recommended Local Mode
@@ -70,6 +73,7 @@ Behavior:
 - Timeline loads from local seed data
 - Outbound template submission returns a mock queued intent
 - A small artificial latency can be configured for realistic demos
+- Kill switch can be toggled locally to block outbound messaging flows
 
 ### Live API Mode
 
@@ -85,6 +89,21 @@ Behavior:
 - The app will call the configured API for tickets and timelines
 - If the API request fails, the UI falls back to the local mock dataset so development does not break
 
+### Kill Switch
+
+The console supports a local kill-switch banner and outbound block:
+
+```env
+NEXT_PUBLIC_KILL_SWITCH_ACTIVE=true
+```
+
+Behavior when enabled:
+
+- A red banner appears at the top of `/tickets`
+- A red banner appears at the top of `/tickets/[id]`
+- `Send Status Update` actions are disabled and greyed out
+- Ticket detail shows the next action as blocked by kill switch
+
 ## Mock Workflow Notes
 
 The seeded local workflow is designed for frontend development and demos:
@@ -94,6 +113,8 @@ The seeded local workflow is designed for frontend development and demos:
 - Ticket detail renders mixed timeline event types
 - Template composer only exposes allowlisted variables
 - Upload-link flow is simulated and intentionally does not allow custom outbound text
+- Timeline actors use human-readable names in the local dataset
+- Risk flags render as red warning badges on the ticket detail page
 
 The active mode is shown in the UI through an environment banner on the tickets screen.
 

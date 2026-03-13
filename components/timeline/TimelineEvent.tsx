@@ -34,9 +34,11 @@ export function TimelineEvent({ event }: { event: TimelineEventType }) {
           </p>
         ) : null}
         {event.event_type === "OUTBOUND_TEMPLATE" ? (
-          <p>
-            Template {event.template_id} v{event.template_version}
-          </p>
+          <div className="flex items-center gap-2">
+            <code className="text-xs text-slate-500">{event.template_id}</code>
+            <span className="text-slate-400">·</span>
+            <span className="rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700">v{event.template_version}</span>
+          </div>
         ) : null}
         {event.event_type === "TRUTH_READINESS" ? (
           <p>

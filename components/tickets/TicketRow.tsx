@@ -15,6 +15,9 @@ export function TicketRow({
   onCompose: (ticket: TicketRowType) => void;
   onUpload: (ticket: TicketRowType) => void;
 }) {
+  const killSwitchActive = process.env.NEXT_PUBLIC_KILL_SWITCH_ACTIVE === "true";
+  const statusUpdateBlocked = killSwitchActive;
+
   return (
     <tr className="group border-b border-slate-100 text-sm">
       <td className="px-3 py-3 font-medium text-slate-900">
@@ -36,7 +39,11 @@ export function TicketRow({
       <td className="px-3 py-3 text-slate-600">{ticket.owner.user_id ?? ticket.owner.queue_id}</td>
       <td className="px-3 py-3">
         <div className="flex items-center gap-2">
-          <button className="rounded-md border border-slate-200 px-2 py-1 text-xs hover:bg-slate-50" onClick={() => onCompose(ticket)}>
+          <button
+            className={`rounded-md border px-2 py-1 text-xs ${statusUpdateBlocked ? "cursor-not-allowed border-slate-200 bg-slate-200 text-slate-500" : "border-slate-200 hover:bg-slate-50"}`}
+            onClick={() => onCompose(ticket)}
+            disabled={statusUpdateBlocked}
+          >
             Send Status Update
           </button>
           <button className="rounded-md border border-slate-200 px-2 py-1 text-xs hover:bg-slate-50" onClick={() => onUpload(ticket)}>
