@@ -12,7 +12,7 @@ export function TicketTable({ tickets }: { tickets: TicketRowType[] }) {
 
   return (
     <>
-      <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-panel">
+      <div className="hidden overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-panel lg:block">
         <table className="min-w-full table-fixed">
           <thead className="bg-slate-50 text-left text-xs uppercase tracking-[0.18em] text-slate-500">
             <tr>
@@ -29,6 +29,59 @@ export function TicketTable({ tickets }: { tickets: TicketRowType[] }) {
             ))}
           </tbody>
         </table>
+      </div>
+      <div className="space-y-3 lg:hidden">
+        {tickets.map((ticket) => (
+          <div key={ticket.ticket_id} className="rounded-2xl border border-slate-200 bg-white p-4 shadow-panel">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <p className="text-xs uppercase tracking-[0.18em] text-slate-400">Ticket ID</p>
+                <p className="mt-1 text-sm font-semibold text-slate-900">{ticket.ticket_id}</p>
+              </div>
+              <div className="shrink-0">
+                <TicketRow ticket={ticket} onCompose={setComposerTicket} onUpload={setUploadTicket} mobile />
+              </div>
+            </div>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              <div>
+                <p className="text-xs uppercase tracking-[0.18em] text-slate-400">Claim ID</p>
+                <p className="mt-1 text-sm text-slate-700">{ticket.claim_id ?? "Missing"}</p>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-[0.18em] text-slate-400">Trust</p>
+                <div className="mt-1">
+                  <TicketRow ticket={ticket} onCompose={setComposerTicket} onUpload={setUploadTicket} mobileBadge />
+                </div>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-[0.18em] text-slate-400">Hospital</p>
+                <p className="mt-1 text-sm text-slate-700">{ticket.hospital}</p>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-[0.18em] text-slate-400">Payer</p>
+                <p className="mt-1 text-sm text-slate-700">{ticket.payer}</p>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-[0.18em] text-slate-400">Status</p>
+                <p className="mt-1 text-sm text-slate-700">{ticket.status}</p>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-[0.18em] text-slate-400">Owner</p>
+                <p className="mt-1 text-sm text-slate-700">{ticket.owner.user_id ?? ticket.owner.queue_id}</p>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-[0.18em] text-slate-400">TAT</p>
+                <div className="mt-1">
+                  <TicketRow ticket={ticket} onCompose={setComposerTicket} onUpload={setUploadTicket} mobileTat />
+                </div>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-[0.18em] text-slate-400">Last Ping</p>
+                <p className="mt-1 text-sm text-slate-700">{new Date(ticket.last_inbound_ping).toLocaleString()}</p>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
       {composerTicket ? (
         <TemplateComposer

@@ -49,7 +49,7 @@ export function TemplateComposer({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent>
+      <DialogContent className="max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Template Composer</DialogTitle>
           <DialogDescription>Only allowlisted template variables are available. Free-text outbound is blocked.</DialogDescription>
@@ -88,7 +88,7 @@ export function TemplateComposer({
             <p className="mt-1 text-sm text-slate-600">Variables are constrained to the approved fields above.</p>
           </div>
           {status ? <p className="text-sm text-emerald-700">{status}</p> : null}
-          <div className="flex justify-end gap-3">
+          <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
             <Button variant="secondary" onClick={() => onOpenChange(false)}>
               Cancel
             </Button>

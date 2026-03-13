@@ -20,15 +20,15 @@ export function TicketsView({ initialTickets }: { initialTickets: TicketRow[] })
     <div className="space-y-5">
       <div>
         <p className="text-xs uppercase tracking-[0.24em] text-slate-400">Main Ops Command Center</p>
-        <h1 className="mt-1 text-2xl font-semibold text-slate-950">Tickets</h1>
+        <h1 className="mt-1 text-xl font-semibold text-slate-950 sm:text-2xl">Tickets</h1>
       </div>
       <EnvironmentBanner />
-      <div className="flex flex-wrap gap-2">
+      <div className="flex gap-2 overflow-x-auto pb-1 sm:flex-wrap">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setFilters({ ...filters, tab: tab.id })}
-            className={`rounded-full px-4 py-2 text-sm font-medium ${filters.tab === tab.id ? "bg-trust-blue text-white" : "bg-white text-slate-600 border border-slate-200"}`}
+            className={`whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium ${filters.tab === tab.id ? "bg-trust-blue text-white" : "bg-white text-slate-600 border border-slate-200"}`}
           >
             {tab.label}
           </button>

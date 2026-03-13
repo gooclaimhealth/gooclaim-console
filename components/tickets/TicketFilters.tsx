@@ -11,8 +11,8 @@ export function TicketFilters({
   onChange: (next: TicketFiltersType) => void;
 }) {
   return (
-    <div className="sticky top-0 z-10 rounded-2xl border border-slate-200 bg-white p-4 shadow-panel">
-      <div className="grid gap-3 md:grid-cols-5">
+    <div className="sticky top-0 z-10 rounded-2xl border border-slate-200 bg-white p-3 shadow-panel sm:p-4">
+      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
         <select className="rounded-lg border border-slate-200 px-3 py-2 text-sm" value={filters.trust_state} onChange={(e) => onChange({ ...filters, trust_state: e.target.value as TicketFiltersType["trust_state"] })}>
           <option value="ALL">Trust state</option>
           {TRUST_STATES.map((state) => (

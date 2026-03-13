@@ -34,15 +34,15 @@ export function TicketDetailView({
             ← Back to Inbox
           </button>
           <p className="text-xs uppercase tracking-[0.24em] text-slate-400">Ticket Detail</p>
-          <h1 className="mt-1 text-2xl font-semibold text-slate-950">{ticket.ticket_id}</h1>
+          <h1 className="mt-1 break-all text-xl font-semibold text-slate-950 sm:text-2xl">{ticket.ticket_id}</h1>
         </div>
         <Timeline events={events} />
       </section>
       <aside className="space-y-4">
         <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-panel">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <TrustBadge state={ticket.trust_state} />
-            <span className="text-sm font-medium text-slate-500">{ticket.claim_id ?? "No claim linked"}</span>
+            <span className="break-all text-sm font-medium text-slate-500">{ticket.claim_id ?? "No claim linked"}</span>
           </div>
           <div className="mt-4">
             <FreshnessWatermark freshnessTs={ticket.freshness_ts} />
