@@ -46,7 +46,9 @@ export function TimelineEvent({ event }: { event: TimelineEventType }) {
           </p>
         ) : null}
         {event.event_type === "CASE_LINKED" ? <p>Case reason: {String(event.payload_summary.reason ?? "")}</p> : null}
-        {event.event_type === "DOC_UPLOAD_LINK_CREATED" ? <p>Upload link expiry: {String(event.payload_summary.expiry ?? "")}</p> : null}
+        {event.event_type === "DOC_UPLOAD_LINK_CREATED" ? (
+          <p>Upload link expiry: {new Date(String(event.payload_summary.expiry ?? "")).toLocaleString("en-IN")}</p>
+        ) : null}
       </div>
     </div>
   );
