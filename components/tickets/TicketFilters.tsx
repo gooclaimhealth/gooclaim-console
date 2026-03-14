@@ -1,54 +1,49 @@
 "use client";
 
-import { REASON_CODES, QUEUE_IDS, TRUST_STATES } from "@/lib/constants";
-import { TicketFilters as TicketFiltersType } from "@/lib/types";
+import { TicketFilters as Filters } from "@/types";
+import { cn } from "@/lib/utils";
+import { Search } from "lucide-react";
 
-export function TicketFilters({
-  filters,
-  onChange
-}: {
-  filters: TicketFiltersType;
-  onChange: (next: TicketFiltersType) => void;
-}) {
+const TABS = [
+  { value: "ALL", label: "All" },
+  { value: "OPEN", label: "Open" },
+  { value: "ESCALATED", label: "Escalated" },
+  { value: "RESOLVED", label: "Resolved" }
+] as const;
+
+interface TicketFiltersProps {
+  filters: Filters;
+  onFiltersChange: (filters: Filters) => void;
+}
+
+export function TicketFilters({ filters, onFiltersChange }: TicketFiltersProps) {
   return (
-    <div className="sticky top-0 z-10 rounded-2xl border border-slate-200 bg-white p-3 shadow-panel sm:p-4">
-      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
-        <select className="rounded-lg border border-slate-200 px-3 py-2 text-sm" value={filters.trust_state} onChange={(e) => onChange({ ...filters, trust_state: e.target.value as TicketFiltersType["trust_state"] })}>
-          <option value="ALL">Trust state</option>
-          {TRUST_STATES.map((state) => (
-            <option key={state} value={state}>
-              {state}
-            </option>
-          ))}
-        </select>
-        <select className="rounded-lg border border-slate-200 px-3 py-2 text-sm" value={filters.reason_code} onChange={(e) => onChange({ ...filters, reason_code: e.target.value as TicketFiltersType["reason_code"] })}>
-          <option value="ALL">Reason code</option>
-          {REASON_CODES.map((code) => (
-            <option key={code} value={code}>
-              {code}
-            </option>
-          ))}
-        </select>
-        <select className="rounded-lg border border-slate-200 px-3 py-2 text-sm" value={filters.age_bucket} onChange={(e) => onChange({ ...filters, age_bucket: e.target.value as TicketFiltersType["age_bucket"] })}>
-          <option value="ALL">Age bucket</option>
-          <option value="0_2H">0-2h</option>
-          <option value="2_24H">2-24h</option>
-          <option value="1_3D">1-3d</option>
-          <option value="GT_3D">&gt;3d</option>
-        </select>
-        <select className="rounded-lg border border-slate-200 px-3 py-2 text-sm" value={filters.queue_id} onChange={(e) => onChange({ ...filters, queue_id: e.target.value as TicketFiltersType["queue_id"] })}>
-          <option value="ALL">Queue</option>
-          {QUEUE_IDS.map((queueId) => (
-            <option key={queueId} value={queueId}>
-              {queueId}
-            </option>
-          ))}
-        </select>
+    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex gap-1 rounded-lg border border-border-default bg-bg-secondary p-1">
+        {TABS.map((tab) => (
+          <button
+            key={tab.value}
+            onClick={() => onFiltersChange({ ...filters, tab: tab.value })}
+            className={cn(
+              "rounded-md px-3 py-1.5 text-xs font-medium transition-colors",
+              filters.tab === tab.value
+                ? "bg-accent-blue text-white"
+                : "text-text-secondary hover:text-text-primary"
+            )}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      <div className="relative">
+        <Search className="absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-text-tertiary" />
         <input
-          value={filters.search}
-          onChange={(e) => onChange({ ...filters, search: e.target.value })}
-          placeholder="Payer / Hospital / Claim"
-          className="rounded-lg border border-slate-200 px-3 py-2 text-sm"
+          type="text"
+          placeholder="Search by claim or ticket ID..."
+          value={filters.search ?? ""}
+          onChange={(e) => onFiltersChange({ ...filters, search: e.target.value || undefined })}
+          className="h-8 w-full rounded-md border border-border-default bg-bg-secondary pl-8 pr-3 text-xs text-text-primary placeholder:text-text-tertiary focus:border-accent-blue focus:outline-none sm:w-64"
         />
       </div>
     </div>
