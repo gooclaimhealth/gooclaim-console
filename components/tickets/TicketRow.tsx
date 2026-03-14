@@ -1,99 +1,58 @@
-"use client";
-
 import Link from "next/link";
-import { MoreHorizontal } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { TrustBadge } from "@/components/shared/TrustBadge";
-import { TATChip } from "@/components/shared/TATChip";
-import { TicketRow as TicketRowType } from "@/lib/types";
+import { Ticket } from "@/types";
+import { StatusDot } from "./StatusDot";
+import { ReasonBadge } from "./ReasonBadge";
 
-export function TicketRow({
-  ticket,
-  onCompose,
-  onUpload,
-  mobile = false,
-  mobileBadge = false,
-  mobileTat = false
-}: {
-  ticket: TicketRowType;
-  onCompose: (ticket: TicketRowType) => void;
-  onUpload: (ticket: TicketRowType) => void;
-  mobile?: boolean;
-  mobileBadge?: boolean;
-  mobileTat?: boolean;
-}) {
-  const killSwitchActive = process.env.NEXT_PUBLIC_KILL_SWITCH_ACTIVE === "true";
-  const statusUpdateBlocked = killSwitchActive;
+function timeAgo(dateStr: string): string {
+  const diff = Date.now() - new Date(dateStr).getTime();
+  const mins = Math.floor(diff / 60000);
+  if (mins < 60) return `${mins}m`;
+  const hours = Math.floor(mins / 60);
+  if (hours < 24) return `${hours}h`;
+  const days = Math.floor(hours / 24);
+  return `${days}d`;
+}
 
-  if (mobileBadge) {
-    return <TrustBadge state={ticket.trust_state} />;
-  }
+const OUTCOME_LABELS: Record<string, string> = {
+  resolved: "🤖 Agent resolved",
+  escalated: "⚠️ Escalated",
+  exception: "🔴 Exception"
+};
 
-  if (mobileTat) {
-    return <TATChip daysLeft={ticket.tat_days_left} />;
-  }
-
-  if (mobile) {
-    return (
-      <div className="flex flex-col gap-2">
-        <Button
-          variant="secondary"
-          size="sm"
-          className={statusUpdateBlocked ? "cursor-not-allowed bg-slate-200 text-slate-500 hover:bg-slate-200" : ""}
-          onClick={() => onCompose(ticket)}
-          disabled={statusUpdateBlocked}
-        >
-          Send Status Update
-        </Button>
-        <Button variant="secondary" size="sm" onClick={() => onUpload(ticket)}>
-          Pending Docs + Link
-        </Button>
-        <Button asChild variant="secondary" size="sm">
-          <Link href={`/tickets/${ticket.ticket_id}`}>Open Timeline</Link>
-        </Button>
-      </div>
-    );
-  }
-
+export function TicketRow({ ticket }: { ticket: Ticket }) {
   return (
-    <tr className="group border-b border-slate-100 text-sm">
-      <td className="px-3 py-3 font-medium text-slate-900">
-        <Link href={`/tickets/${ticket.ticket_id}`} className="hover:text-trust-blue">
-          {ticket.ticket_id}
-        </Link>
-      </td>
-      <td className="px-3 py-3 text-slate-600">{ticket.claim_id ?? "Missing"}</td>
-      <td className="px-3 py-3">{ticket.hospital}</td>
-      <td className="px-3 py-3">{ticket.payer}</td>
-      <td className="px-3 py-3 text-center">
-        <TrustBadge state={ticket.trust_state} />
-      </td>
-      <td className="px-3 py-3 text-slate-600">{ticket.status}</td>
-      <td className="px-3 py-3">
-        <TATChip daysLeft={ticket.tat_days_left} />
-      </td>
-      <td className="px-3 py-3 text-slate-600">{new Date(ticket.last_inbound_ping).toLocaleString()}</td>
-      <td className="px-3 py-3 text-slate-600">{ticket.owner.user_id ?? ticket.owner.queue_id}</td>
-      <td className="px-3 py-3">
-        <div className="flex flex-wrap items-center gap-2">
-          <Button
-            variant="secondary"
-            size="sm"
-            className={statusUpdateBlocked ? "cursor-not-allowed bg-slate-200 text-slate-500 hover:bg-slate-200" : ""}
-            onClick={() => onCompose(ticket)}
-            disabled={statusUpdateBlocked}
-          >
-            Send Status Update
-          </Button>
-          <Button variant="secondary" size="sm" onClick={() => onUpload(ticket)}>
-            Pending Docs + Link
-          </Button>
-          <Button asChild variant="secondary" size="sm">
-            <Link href={`/tickets/${ticket.ticket_id}`}>Open Timeline</Link>
-          </Button>
-          <MoreHorizontal className="hidden h-4 w-4 text-slate-300 group-hover:text-slate-500 xl:block" />
+    <Link
+      href={`/tickets/${ticket.ticket_id}`}
+      className="block rounded-lg border border-border-default bg-bg-secondary p-4 transition-colors hover:bg-bg-tertiary"
+    >
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex items-center gap-2.5 min-w-0">
+          <StatusDot status={ticket.status} />
+          <span className="font-mono text-sm font-medium text-text-primary">
+            {ticket.ticket_id}
+          </span>
+          <ReasonBadge reason={ticket.reason_code} />
         </div>
-      </td>
-    </tr>
+        <span className="shrink-0 font-mono text-xs text-text-tertiary">
+          {timeAgo(ticket.created_at)}
+        </span>
+      </div>
+
+      <div className="mt-2 flex items-center justify-between">
+        <span className="text-sm text-text-secondary">{ticket.message}</span>
+        <span className="shrink-0 text-xs text-text-tertiary">TPA: {ticket.tenant}</span>
+      </div>
+
+      <div className="mt-2 border-t border-border-default pt-2">
+        <span className="text-xs text-text-secondary">
+          {OUTCOME_LABELS[ticket.agent_outcome] ?? ticket.agent_outcome}
+          {ticket.reason_code !== "VERIFIED" && ticket.reason_code !== "MISSING_CLAIM_ID" && (
+            <span className="text-text-tertiary">
+              {" "}— {ticket.reason_code.replace(/_/g, " ").toLowerCase()}
+            </span>
+          )}
+        </span>
+      </div>
+    </Link>
   );
 }
