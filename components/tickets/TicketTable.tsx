@@ -17,7 +17,7 @@ export function TicketTable({ tickets }: { tickets: TicketRowType[] }) {
           <thead className="bg-slate-50 text-left text-xs uppercase tracking-[0.18em] text-slate-500">
             <tr>
               {["Ticket ID", "Claim ID", "Hospital", "Payer", "Trust Badge", "Status", "TAT", "Last Ping", "Owner", "Next Action"].map((header) => (
-                <th key={header} className="px-3 py-3 font-medium">
+                <th key={header} className={`px-3 py-3 font-medium ${header === "Trust Badge" ? "text-center" : ""}`}>
                   {header}
                 </th>
               ))}

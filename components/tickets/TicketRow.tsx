@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { MoreHorizontal } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { TrustBadge } from "@/components/shared/TrustBadge";
 import { TATChip } from "@/components/shared/TATChip";
 import { TicketRow as TicketRowType } from "@/lib/types";
@@ -35,19 +36,21 @@ export function TicketRow({
   if (mobile) {
     return (
       <div className="flex flex-col gap-2">
-        <button
-          className={`rounded-md border px-2 py-2 text-xs ${statusUpdateBlocked ? "cursor-not-allowed border-slate-200 bg-slate-200 text-slate-500" : "border-slate-200 hover:bg-slate-50"}`}
+        <Button
+          variant="secondary"
+          size="sm"
+          className={statusUpdateBlocked ? "cursor-not-allowed bg-slate-200 text-slate-500 hover:bg-slate-200" : ""}
           onClick={() => onCompose(ticket)}
           disabled={statusUpdateBlocked}
         >
           Send Status Update
-        </button>
-        <button className="rounded-md border border-slate-200 px-2 py-2 text-xs hover:bg-slate-50" onClick={() => onUpload(ticket)}>
+        </Button>
+        <Button variant="secondary" size="sm" onClick={() => onUpload(ticket)}>
           Pending Docs + Link
-        </button>
-        <Link href={`/tickets/${ticket.ticket_id}`} className="rounded-md border border-slate-200 px-2 py-2 text-center text-xs hover:bg-slate-50">
-          Open Timeline
-        </Link>
+        </Button>
+        <Button asChild variant="secondary" size="sm">
+          <Link href={`/tickets/${ticket.ticket_id}`}>Open Timeline</Link>
+        </Button>
       </div>
     );
   }
@@ -62,7 +65,7 @@ export function TicketRow({
       <td className="px-3 py-3 text-slate-600">{ticket.claim_id ?? "Missing"}</td>
       <td className="px-3 py-3">{ticket.hospital}</td>
       <td className="px-3 py-3">{ticket.payer}</td>
-      <td className="px-3 py-3">
+      <td className="px-3 py-3 text-center">
         <TrustBadge state={ticket.trust_state} />
       </td>
       <td className="px-3 py-3 text-slate-600">{ticket.status}</td>
@@ -73,19 +76,21 @@ export function TicketRow({
       <td className="px-3 py-3 text-slate-600">{ticket.owner.user_id ?? ticket.owner.queue_id}</td>
       <td className="px-3 py-3">
         <div className="flex flex-wrap items-center gap-2">
-          <button
-            className={`rounded-md border px-2 py-1 text-xs ${statusUpdateBlocked ? "cursor-not-allowed border-slate-200 bg-slate-200 text-slate-500" : "border-slate-200 hover:bg-slate-50"}`}
+          <Button
+            variant="secondary"
+            size="sm"
+            className={statusUpdateBlocked ? "cursor-not-allowed bg-slate-200 text-slate-500 hover:bg-slate-200" : ""}
             onClick={() => onCompose(ticket)}
             disabled={statusUpdateBlocked}
           >
             Send Status Update
-          </button>
-          <button className="rounded-md border border-slate-200 px-2 py-1 text-xs hover:bg-slate-50" onClick={() => onUpload(ticket)}>
+          </Button>
+          <Button variant="secondary" size="sm" onClick={() => onUpload(ticket)}>
             Pending Docs + Link
-          </button>
-          <Link href={`/tickets/${ticket.ticket_id}`} className="rounded-md border border-slate-200 px-2 py-1 text-xs hover:bg-slate-50">
-            Open Timeline
-          </Link>
+          </Button>
+          <Button asChild variant="secondary" size="sm">
+            <Link href={`/tickets/${ticket.ticket_id}`}>Open Timeline</Link>
+          </Button>
           <MoreHorizontal className="hidden h-4 w-4 text-slate-300 group-hover:text-slate-500 xl:block" />
         </div>
       </td>
