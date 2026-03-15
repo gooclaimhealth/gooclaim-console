@@ -89,7 +89,7 @@ export function Sidebar({ currentScreen, onNavigate }: SidebarProps) {
             <p className="text-xs text-slate-400">Next audit sync in 08m</p>
           </div>
         </button>
-        <p className="mt-3 px-1 text-xs text-slate-500">v0.2.1</p>
+        <p className="mt-3 px-1 text-xs text-slate-500">v0.2.1-rc1</p>
       </div>
     </div>
   );

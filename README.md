@@ -103,4 +103,4 @@ components/
 
 ## Version
 
-Current pilot label in the UI: `v0.2.1`
+Current pilot label in the UI: `v0.2.1-rc1`
