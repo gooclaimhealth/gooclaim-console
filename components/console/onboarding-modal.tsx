@@ -62,7 +62,7 @@ export function OnboardingModal({ onClose }: OnboardingModalProps) {
                   <div className="min-w-0">
                     <p className="text-base font-semibold leading-6 text-[--text-primary]">MVP flow is deterministic</p>
                     <p className="mt-1 text-sm leading-7 text-[--text-secondary]">
-                      Input -> Intent Router -> Template pick -> Send. No LLM generation is implied in the pilot flow.
+                      Input {'->'} Intent Router {'->'} Template pick {'->'} Send. No LLM generation is implied in the pilot flow.
                     </p>
                   </div>
                 </div>
