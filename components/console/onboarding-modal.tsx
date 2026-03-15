@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowRight, Bot, ShieldCheck, Sparkles, X } from 'lucide-react';
+import { ArrowRight, GitBranch, ShieldCheck, Sparkles, X } from 'lucide-react';
 
 interface OnboardingModalProps {
   onClose: () => void;
@@ -22,7 +22,7 @@ export function OnboardingModal({ onClose }: OnboardingModalProps) {
                 Escalate less. See risk faster. Keep auditability intact.
               </h2>
               <p className="mt-4 max-w-lg text-sm leading-6 text-white/78">
-                Gooclaim auto-resolves low-risk claims and turns the remaining cases into a clean human review queue.
+                The MVP uses deterministic automation for intake, routing, template selection, and sending. Human review only appears on exceptions.
               </p>
 
               <div className="mt-8 grid gap-4 sm:grid-cols-3">
@@ -57,12 +57,12 @@ export function OnboardingModal({ onClose }: OnboardingModalProps) {
               <div className="rounded-3xl border border-[--border] bg-[--panel-soft] p-5">
                 <div className="grid grid-cols-[48px_1fr] items-start gap-4">
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-[--panel-strong] shadow-sm">
-                    <Bot className="h-5 w-5" />
+                    <GitBranch className="h-5 w-5" />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-base font-semibold leading-6 text-[--text-primary]">Agent handles routine validation</p>
+                    <p className="text-base font-semibold leading-6 text-[--text-primary]">MVP flow is deterministic</p>
                     <p className="mt-1 text-sm leading-7 text-[--text-secondary]">
-                      Policy checks, source verification, and reasoning traces are generated automatically.
+                      Input -> Intent Router -> Template pick -> Send. No LLM generation is implied in the pilot flow.
                     </p>
                   </div>
                 </div>
@@ -74,9 +74,9 @@ export function OnboardingModal({ onClose }: OnboardingModalProps) {
                     <ShieldCheck className="h-5 w-5" />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-base font-semibold leading-6 text-[--text-primary]">Reviewers step in only on risk</p>
+                    <p className="text-base font-semibold leading-6 text-[--text-primary]">System layer is deterministic in MVP</p>
                     <p className="mt-1 text-sm leading-7 text-[--text-secondary]">
-                      Escalations are grouped by severity so the team spends time on judgment, not lookup work.
+                      LLM reasoning over KB + truth is a later internal upgrade after stable operations, zero incidents, and tenant approval.
                     </p>
                   </div>
                 </div>

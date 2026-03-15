@@ -12,7 +12,7 @@ const modeOptions = [
   {
     id: 'NORMAL',
     label: 'Normal',
-    description: 'Agent handles routine verification and escalates exceptions.',
+    description: 'System processes routine verification and escalates exceptions.',
     tone: 'border-emerald-200 bg-emerald-50 text-emerald-800',
     dot: 'bg-emerald-500',
   },

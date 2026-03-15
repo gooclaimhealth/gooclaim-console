@@ -20,7 +20,7 @@ const eventTimeline = [
     id: 2,
     icon: '⚡',
     time: '09:35 AM',
-    title: 'Agent Decision',
+    title: 'Router Decision',
     lines: ['Truth: STALE (45 days old)', 'Policy: FAIL', 'Fallback: TPL_STALE_V2'],
     borderColor: '#7C3AED',
   },

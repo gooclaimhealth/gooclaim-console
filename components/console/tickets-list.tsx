@@ -16,7 +16,7 @@ const mockTickets = [
     status: 'ESCALATED',
     reason: 'TRUTH_STALE',
     createdAt: '2024-03-14T09:30:00Z',
-    agent: 'Agent escalated due to stale truth data',
+    summary: 'System escalated due to stale truth data',
   },
   {
     id: 'TKT-002',
@@ -24,7 +24,7 @@ const mockTickets = [
     status: 'OPEN',
     reason: 'LOW_CONFIDENCE',
     createdAt: '2024-03-14T10:15:00Z',
-    agent: '⚠ Exception: Low confidence in verification',
+    summary: 'Exception: Low confidence in verification',
   },
   {
     id: 'TKT-003',
@@ -32,7 +32,7 @@ const mockTickets = [
     status: 'RESOLVED',
     reason: 'VERIFIED',
     createdAt: '2024-03-14T11:00:00Z',
-    agent: '🤖 Agent resolved successfully',
+    summary: '⚡ Auto-resolved',
   },
   {
     id: 'TKT-004',
@@ -40,7 +40,7 @@ const mockTickets = [
     status: 'OPEN',
     reason: 'MISSING_CLAIM_ID',
     createdAt: '2024-03-14T08:45:00Z',
-    agent: '⚠ Exception: Missing claim ID',
+    summary: 'Exception: Missing claim ID',
   },
   {
     id: 'TKT-005',
@@ -48,7 +48,7 @@ const mockTickets = [
     status: 'ESCALATED',
     reason: 'NO_SOURCE',
     createdAt: '2024-03-14T07:30:00Z',
-    agent: '🔴 Escalated: No authoritative source',
+    summary: 'Escalated: No authoritative source',
   },
 ];
 
@@ -162,7 +162,7 @@ export function TicketsListScreen({ onSelectTicket, activeFilter, onFilterChange
                 <CheckCircle2 className="h-4 w-4 text-emerald-600" />
               </div>
               <p className="mt-4 font-mono text-4xl font-semibold text-emerald-700">{containmentRate}%</p>
-              <p className="mt-2 text-sm text-[--text-secondary]">Routine claims resolved by the agent</p>
+              <p className="mt-2 text-sm text-[--text-secondary]">System auto-handles 94%</p>
             </div>
             <div className="rounded-[28px] border border-amber-200 bg-white p-5 shadow-sm">
               <div className="flex items-center justify-between">
@@ -261,7 +261,7 @@ export function TicketsListScreen({ onSelectTicket, activeFilter, onFilterChange
                   </td>
                   <td className="px-6 py-4">
                     <div>
-                      <p className="text-sm font-medium text-[--text-primary]">{ticket.agent}</p>
+                      <p className="text-sm font-medium text-[--text-primary]">{ticket.summary}</p>
                       <p className="mt-1 text-xs text-[--text-tertiary]">PHI-safe triage record</p>
                     </div>
                   </td>

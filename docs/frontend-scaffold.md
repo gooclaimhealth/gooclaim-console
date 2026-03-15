@@ -113,7 +113,7 @@ ConsolePage
 +----------------------------------------------------------------------------------+
 | Active tickets                                              [All] [Escalated]    |
 |----------------------------------------------------------------------------------|
-| TKT-001 | CLM-2024-001 | Agent escalated due to stale truth data | ...          |
+| TKT-001 | CLM-2024-001 | Automation escalated due to stale truth data | ...     |
 | TKT-002 | CLM-2024-002 | Exception: Low confidence in verification | ...         |
 +----------------------------------------------------------------------------------+
 ```
@@ -127,7 +127,7 @@ ConsolePage
 | Event Timeline                                   | Claim Context                 |
 |--------------------------------------------------|------------------------------|
 | ↓ 09:30 AM · Inbound · WhatsApp                  | Policy                        |
-| ⚡ 09:35 AM · Agent Decision                      | Hospital                      |
+| ⚡ 09:35 AM · Router Decision                     | Hospital                      |
 | ↑ 09:35 AM · Outbound · WhatsApp                 | Admission                     |
 | ⚠ 09:40 AM · Exception Created                   | Amount                        |
 |                                                  | Truth Status                  |

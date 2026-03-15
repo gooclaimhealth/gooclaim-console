@@ -26,6 +26,23 @@ Frontend for the Gooclaim pilot console. This app is a Next.js UI for TPA operat
   - read-only registry
   - status and language filters
 
+## MVP Behavior
+
+This pilot frontend is positioned as deterministic system automation, not an LLM agent.
+
+Current MVP flow:
+
+```text
+Input -> Intent Router -> Template pick -> Send
+```
+
+Implications:
+
+- no free-form LLM generation is implied in the pilot UI
+- exception handling routes to human review
+- template usage is registry-driven and read-only from the console
+- any future agent layer is post-pilot and tenant-controlled
+
 ## Getting Started
 
 ### Prerequisites
