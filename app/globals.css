@@ -1,17 +1,158 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --bg-primary: #f4efe7;
+  --bg-secondary: #fffdf9;
+  --bg-tertiary: #efe6da;
+  --panel-soft: #f5ede2;
+  --panel-strong: #1b3e6f;
+  --border: #ded3c5;
+  --border-strong: #c7b8a3;
+  --accent-blue: #1b3e6f;
+  --accent-cyan: #d97706;
+  --accent-light: #edf2f8;
+  --text-primary: #1f2937;
+  --text-secondary: #5c6777;
+  --text-tertiary: #8a7d6d;
+  --green: #0f8b5f;
+  --green-bg: #edf9f3;
+  --amber: #b86a16;
+  --amber-bg: #fff3df;
+  --red: #c74a3a;
+  --red-bg: #fff0ed;
+  
+  /* Compatibility with existing theme tokens */
+  --background: var(--bg-primary);
+  --foreground: var(--text-primary);
+  --card: var(--bg-secondary);
+  --card-foreground: var(--text-primary);
+  --popover: var(--bg-secondary);
+  --popover-foreground: var(--text-primary);
+  --primary: var(--accent-blue);
+  --primary-foreground: var(--bg-secondary);
+  --secondary: var(--bg-secondary);
+  --secondary-foreground: var(--text-primary);
+  --muted: var(--bg-tertiary);
+  --muted-foreground: var(--text-tertiary);
+  --accent: var(--accent-blue);
+  --accent-foreground: var(--bg-secondary);
+  --destructive: var(--red);
+  --destructive-foreground: var(--bg-secondary);
+  --border-color: var(--border);
+  --input: var(--bg-secondary);
+  --ring: var(--accent-blue);
+  --chart-1: var(--accent-blue);
+  --chart-2: var(--accent-cyan);
+  --chart-3: var(--green);
+  --chart-4: var(--amber);
+  --chart-5: var(--red);
+  --radius: 0.625rem;
+  --sidebar: var(--bg-secondary);
+  --sidebar-foreground: var(--text-primary);
+  --sidebar-primary: var(--accent-blue);
+  --sidebar-primary-foreground: var(--bg-secondary);
+  --sidebar-accent: var(--accent-light);
+  --sidebar-accent-foreground: var(--accent-blue);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--accent-blue);
+}
+
+/* Light theme only - no dark mode */
+
+@theme inline {
+  --font-sans: var(--font-geist);
+  --font-mono: var(--font-geist-mono);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
 
 @layer base {
-  :root {
-    color-scheme: dark;
-  }
-
-  body {
-    @apply bg-bg-primary text-text-primary antialiased font-sans;
-  }
-
   * {
-    @apply border-border-default;
+    @apply border-border outline-ring/50;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-background text-foreground font-sans;
+    background-image:
+      radial-gradient(circle at top left, rgba(217, 119, 6, 0.16), transparent 28%),
+      radial-gradient(circle at top right, rgba(27, 62, 111, 0.12), transparent 32%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.36), rgba(255, 255, 255, 0));
+    min-height: 100vh;
+  }
+}
+
+@layer utilities {
+  /* Custom CSS variable utilities */
+  .bg-bg-primary {
+    @apply bg-[color:var(--bg-primary)];
+  }
+  .bg-bg-secondary {
+    @apply bg-[color:var(--bg-secondary)];
+  }
+  .bg-bg-tertiary {
+    @apply bg-[color:var(--bg-tertiary)];
+  }
+  
+  .text-text-primary {
+    @apply text-[color:var(--text-primary)];
+  }
+  .text-text-secondary {
+    @apply text-[color:var(--text-secondary)];
+  }
+  .text-text-tertiary {
+    @apply text-[color:var(--text-tertiary)];
+  }
+  
+  .border-border {
+    @apply border-[color:var(--border)];
+  }
+  
+  .text-accent-blue {
+    @apply text-[color:var(--accent-blue)];
+  }
+  
+  .bg-accent-light {
+    @apply bg-[color:var(--accent-light)];
   }
 }

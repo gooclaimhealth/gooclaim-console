@@ -1,55 +1,47 @@
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss'
 
 const config: Config = {
-  darkMode: ["class"],
   content: [
-    "./app/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./hooks/**/*.{ts,tsx}",
-    "./lib/**/*.{ts,tsx}"
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
-      colors: {
-        "bg-primary": "#0A0F1E",
-        "bg-secondary": "#111827",
-        "bg-tertiary": "#1F2937",
-        "accent-blue": "#1A56DB",
-        "accent-cyan": "#0EA5E9",
-        "accent-green": "#10B981",
-        "accent-amber": "#F59E0B",
-        "accent-red": "#EF4444",
-        "text-primary": "#F9FAFB",
-        "text-secondary": "#9CA3AF",
-        "text-tertiary": "#6B7280",
-        "border-default": "#1F2937"
-      },
       fontFamily: {
-        mono: ["JetBrains Mono", "DM Mono", "monospace"],
-        sans: ["Inter", "system-ui", "sans-serif"]
+        sans: 'var(--font-balloo), "DM Sans", system-ui, -apple-system, sans-serif',
+        mono: 'var(--font-jetbrains-mono), "JetBrains Mono", monospace',
       },
-      keyframes: {
-        "pulse-green": {
-          "0%, 100%": { opacity: "1" },
-          "50%": { opacity: "0.5" }
+      colors: {
+        'bg': {
+          primary: 'var(--bg-primary)',
+          secondary: 'var(--bg-secondary)',
+          tertiary: 'var(--bg-tertiary)',
         },
-        "pulse-amber": {
-          "0%, 100%": { opacity: "1" },
-          "50%": { opacity: "0.4" }
+        'text': {
+          primary: 'var(--text-primary)',
+          secondary: 'var(--text-secondary)',
+          tertiary: 'var(--text-tertiary)',
         },
-        "pulse-red": {
-          "0%, 100%": { opacity: "1", transform: "scale(1)" },
-          "50%": { opacity: "0.6", transform: "scale(1.1)" }
-        }
+        'accent': {
+          blue: 'var(--accent-blue)',
+          cyan: 'var(--accent-cyan)',
+          light: 'var(--accent-light)',
+        },
+        'semantic': {
+          green: 'var(--green)',
+          'green-bg': 'var(--green-bg)',
+          amber: 'var(--amber)',
+          'amber-bg': 'var(--amber-bg)',
+          red: 'var(--red)',
+          'red-bg': 'var(--red-bg)',
+        },
       },
-      animation: {
-        "pulse-green": "pulse-green 2s ease-in-out infinite",
-        "pulse-amber": "pulse-amber 1.5s ease-in-out infinite",
-        "pulse-red": "pulse-red 1s ease-in-out infinite"
-      }
-    }
+      backgroundColor: {
+        border: 'var(--border)',
+      },
+    },
   },
-  plugins: []
-};
+  plugins: [],
+}
 
-export default config;
+export default config
